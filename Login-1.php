@@ -42,7 +42,6 @@ if (isset($_POST['enter'])) //pushing of button "LOGIN"
 <title> LOGIN</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script> 
-
 </head>
 <body background="http://s8.postimg.org/fj9z9eaf9/back.jpg">
 <?php include 'home.php';?>
@@ -58,8 +57,9 @@ if (isset($_POST['enter'])) //pushing of button "LOGIN"
   <input type="password" name="password">
     <br><br>
    
-  <button type="submit" name="enter"login>Log In </button>
-<a id="reg"; href="Registor.php">Register</a>
+  <button class="button" type="submit" name="enter"login>Log In </button>
+  <a href="Registor.php" class="button">Register</a>
+
 
 
 </form>

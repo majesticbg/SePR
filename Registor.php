@@ -13,33 +13,39 @@ if (mysqli_connect_errno())
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
 
+
 if (isset($_POST['submit']))
 {
+
     
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $dob = $_POST['dob'];
-	$address = $_POST['address'];
-	$mail = $_POST['email'];
-	$name = $_POST['username'];
-	$password = $_POST['password'];
-	
- if (strlen($password)<5)
-        {
+    $address = $_POST['address'];
+    $mail = $_POST['email'];
+    $name = $_POST['username'];
+    $password = $_POST['password'];
+    $uppercase = preg_match('@[A-Z]@', $password);
+    $lowercase = preg_match('@[a-z]@', $password);
+        
+
+
+ if (strlen($password)<5 || !$uppercase || !$lowercase)
+ {
 
             echo "
 			<script>
-			alert(\"Password should have be more than 5 characters\");
+			alert(\"Password should contain at least 1 uppercase letter and should be longer than 5 characters\");
 			</script>";
-        }
+ }
  elseif(!preg_match("~([a-zA-Z0-9!#$%&\'*+-/=?^_`{|}\~])@([a-zA-Z0-9-]).([a-zA-Z0-9]{2,4})~", $mail))
-        {
+    {
              echo "
 			<script>
 			alert(\"Your email is not valid\");
 			</script>";
                 
-        }
+}
  elseif(!preg_match('|^[-Ð-Ð¯Ð°-ÑA-Za-z0-9_]*$|',$name))
         {
             echo "
@@ -48,7 +54,8 @@ if (isset($_POST['submit']))
 			</script>";
            
         }
-		else
+	
+               else
 		{
 			
     $password = md5($password);
@@ -69,6 +76,12 @@ if (isset($_POST['submit']))
 function recaptchaCallback() {
     $('#submitBtn').removeAttr('disabled');
 };
+
+$(document).ready(function(){
+    $('#submitBtn').click(function(){
+        $('.alert').show("Captcha not completed")
+    }) 
+});
 </script>
 
 <!document html>
@@ -108,7 +121,7 @@ function recaptchaCallback() {
   
  <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LdrL0wUAAAAAGK3OnrA-1XIKmuLFJhaCJ7-3gLa"></div>
  <br><br>
-  <input id="submitBtn" type="submit" name="submit" value="Registration" disabled> <br><br><br><br><br><br>
+  <input class="button" id="submitBtn" type="submit" name="submit" value="Registration" disabled> <br><br><br><br><br><br>
 </form>
     </div>
 
